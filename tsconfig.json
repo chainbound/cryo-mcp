@@ -11,6 +11,7 @@
         "moduleDetection": "force",
         "noEmit": false,
         "outDir": "./dist",
+        "rootDir": "./src",
         "isolatedModules": true,
         "verbatimModuleSyntax": true,
         "skipLibCheck": true,
@@ -22,6 +23,7 @@
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "eslint.config.js"
     ]
 }

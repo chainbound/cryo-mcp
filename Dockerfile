@@ -13,30 +13,18 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # Install cryo using Cargo
 RUN cargo install --git https://github.com/paradigmxyz/cryo.git --locked
 
-# Copy package files and workspace config
-COPY packages/payflow-sdk/tsconfig.json ./packages/payflow-sdk/tsconfig.json
-COPY examples/cryo-mcp/tsconfig.json ./examples/cryo-mcp/tsconfig.json
-COPY tsconfig.base.json ./tsconfig.base.json
-COPY packages/payflow-sdk/package.json ./packages/payflow-sdk/package.json
-COPY examples/cryo-mcp/package.json ./examples/cryo-mcp/package.json
+# Copy package files
 COPY package.json ./package.json
 COPY pnpm-lock.yaml ./pnpm-lock.yaml
-COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY tsconfig.json ./tsconfig.json
 
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
-# Copy source files for both packages
-COPY packages/payflow-sdk/src ./packages/payflow-sdk/src
-COPY examples/cryo-mcp/src ./examples/cryo-mcp/src
+# Copy source files
+COPY src ./src
 
-
-COPY packages/payflow-sdk/tsup.config.ts ./packages/payflow-sdk/tsup.config.ts
-
-# Build payflow-sdk first (dependency)
-RUN pnpm --filter @chainbound/payflow-sdk run build
-
-# Build cryo-mcp
-RUN pnpm --filter @chainbound/cryo-mcp-server run build
+# Build the project
+RUN pnpm run build
 
 # ---- Production Stage ----
 FROM node:22-slim AS prod
@@ -50,25 +38,19 @@ RUN apt-get update && apt-get install -y libssl-dev ca-certificates curl
 # Copy cryo binary from build stage
 COPY --from=build /root/.cargo/bin/cryo /usr/local/bin/cryo
 
-# Copy workspace configuration and package files
-COPY packages/payflow-sdk/package.json ./packages/payflow-sdk/package.json
-COPY examples/cryo-mcp/package.json ./examples/cryo-mcp/package.json
+# Copy package files
 COPY package.json ./package.json
 COPY pnpm-lock.yaml ./pnpm-lock.yaml
-COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
 
-# Install all dependencies (including workspace deps) to ensure proper linking
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+# Install production dependencies
+RUN npm install -g pnpm && pnpm install --frozen-lockfile --prod
 
-# Copy built packages
-COPY --from=build /app/packages/payflow-sdk/dist ./packages/payflow-sdk/dist
-COPY --from=build /app/examples/cryo-mcp/dist ./examples/cryo-mcp/dist
+# Copy built application
+COPY --from=build /app/dist ./dist
 
-COPY examples/cryo-mcp/index.html ./examples/cryo-mcp/index.html
-COPY examples/cryo-mcp/static ./examples/cryo-mcp/static
-
-# Set working directory to the package
-WORKDIR /app/examples/cryo-mcp
+# Copy static files
+COPY index.html ./index.html
+COPY static ./static
 
 RUN useradd -m appuser
 USER appuser
