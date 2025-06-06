@@ -1,10 +1,10 @@
 # Cryo MCP (with Payflow)
 
-> https://cryo-mcp.fly.dev
+[![Button Icon](https://img.shields.io/badge/Live%20Demo-Cryo-EF2D5E?style=for-the-badge&logoColor=white&logo=Files)](https://cryo-mcp.fly.dev)
 
 Cryo MCP is an [MCP server](https://modelcontextprotocol.io/introduction) that allows you to extensively query blockchain data in natural language, powered by [Cryo](https://github.com/paradigmxyz/cryo) and [Reth](https://github.com/paradigmxyz/reth).
 
-We host a remote MCP server at [https://cryo-mcp.fly.dev/v1/mcp](https://cryo-mcp.fly.dev/) that you can use to test it out. It is connected to a Reth archive node and has access to all datasets that [Cryo](https://github.com/paradigmxyz/cryo) provides:
+We host a remote MCP server at [https://cryo-mcp.fly.dev/v1/mcp](https://cryo-mcp.fly.dev/) that you can use to test it out. It is connected to a Reth archive node and has access to all datasets that Cryo provides:
 ```
 cryo datasets
 ─────────────
