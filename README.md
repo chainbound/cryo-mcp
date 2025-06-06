@@ -4,7 +4,7 @@ This example demonstrates how to use the `payflow-sdk` to integrate micropayment
 The MCP server is powered by [Cryo](https://github.com/paradigmxyz/cryo) and [Reth](https://github.com/paradigmxyz/reth). We host a remote MCP server at [https://cryo-mcp.fly.dev/v1/mcp](https://cryo-mcp.fly.dev/) that you can use to test it out. It is connected to a Reth archive node and has access to all datasets that [Cryo](https://github.com/paradigmxyz/cryo) provides.
 
 ## Claude Desktop Quickstart
-For the purposes of this demo, we'll use the remote and paid [Cryo MCP server](./packages/cryo-mcp), a local [payflow MCP server](./packages/payflow-mcp). The payflow MCP server runs locally and holds the private key for the payer.
+For the purposes of this demo, we'll use the remote and paid [Cryo MCP server](https://github.com/chainbound/cryo-mcp), a local [payflow MCP server](https://github.com/chainbound/payflow/tree/main/packages/payflow-mcp). The payflow MCP server runs locally and holds the private key for the payer.
 
 1. Press `cmd+,` in Claude Desktop to open the settings
 2. Go to the `Developer` tab
