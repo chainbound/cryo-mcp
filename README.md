@@ -1,11 +1,54 @@
-# Cryo MCP with Payflow
-This example demonstrates how to use the `payflow-sdk` to integrate micropayments into your MCP server. We've also tried to make the MCP server as *useful* as possible, because that's realistically the only reason agents would pay for it :).
+# Cryo MCP (with Payflow)
 
-The MCP server is powered by [Cryo](https://github.com/paradigmxyz/cryo) and [Reth](https://github.com/paradigmxyz/reth). We host a remote MCP server at [https://cryo-mcp.fly.dev/v1/mcp](https://cryo-mcp.fly.dev/) that you can use to test it out. It is connected to a Reth archive node and has access to all datasets that [Cryo](https://github.com/paradigmxyz/cryo) provides.
+> https://cryo-mcp.fly.dev
+
+Cryo MCP is an [MCP server](https://modelcontextprotocol.io/introduction) that allows you to extensively query blockchain data in natural language, powered by [Cryo](https://github.com/paradigmxyz/cryo) and [Reth](https://github.com/paradigmxyz/reth).
+
+We host a remote MCP server at [https://cryo-mcp.fly.dev/v1/mcp](https://cryo-mcp.fly.dev/) that you can use to test it out. It is connected to a Reth archive node and has access to all datasets that [Cryo](https://github.com/paradigmxyz/cryo) provides:
+```
+cryo datasets
+─────────────
+- address_appearances
+- balance_diffs
+- balance_reads
+- balances
+- blocks
+- code_diffs
+- code_reads
+- codes
+- contracts
+- erc20_balances
+- erc20_metadata
+- erc20_supplies
+- erc20_transfers
+- erc721_metadata
+- erc721_transfers
+- eth_calls
+- four_byte_counts (alias = 4byte_counts)
+- geth_calls
+- geth_code_diffs
+- geth_balance_diffs
+- geth_storage_diffs
+- geth_nonce_diffs
+- geth_opcodes
+- javascript_traces (alias = js_traces)
+- logs (alias = events)
+- native_transfers
+- nonce_diffs
+- nonce_reads
+- nonces
+- slots (alias = storages)
+- storage_diffs (alias = slot_diffs)
+- storage_reads (alias = slot_reads)
+- traces
+- trace_calls
+- transactions (alias = txs)
+- vm_traces (alias = opcode_traces)
+```
+
+It is also a demonstration of how to use [`payflow`](https://github.com/chainbound/payflow) to integrate micropayments into your MCP server. To use it, you need to have a local [payflow MCP server](https://github.com/chainbound/payflow/tree/main/packages/payflow-mcp) running that can create the payments for the paid tools.
 
 ## Claude Desktop Quickstart
-For the purposes of this demo, we'll use the remote and paid [Cryo MCP server](https://github.com/chainbound/cryo-mcp), a local [payflow MCP server](https://github.com/chainbound/payflow/tree/main/packages/payflow-mcp). The payflow MCP server runs locally and holds the private key for the payer.
-
 1. Press `cmd+,` in Claude Desktop to open the settings
 2. Go to the `Developer` tab
 3. Click edit config and open the `claude_desktop_config.json` file
